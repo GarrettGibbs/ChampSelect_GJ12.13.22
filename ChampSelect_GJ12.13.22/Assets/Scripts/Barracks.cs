@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Barracks : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class Barracks : MonoBehaviour
 
     public List<Figure> targetingThisBarracks = new List<Figure>();
 
+    [SerializeField] Image healthFill;
+
     int health = 100;
     int[] healthAtLevels = new int[5] {100, 200, 500, 1000, 2000};
     int level = 1;
@@ -31,6 +34,8 @@ public class Barracks : MonoBehaviour
     int totalSpawns = 0;
 
     private void Update() {
+        healthFill.fillAmount = (float)health / healthAtLevels[level-1];
+
         timeSinceSpawn += Time.deltaTime;
         if(totalDesiredSpawns > totalSpawns) {
             SpawnCreature(0);

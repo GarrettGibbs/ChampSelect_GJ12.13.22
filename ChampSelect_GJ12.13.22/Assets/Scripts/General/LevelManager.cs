@@ -23,7 +23,8 @@ public class LevelManager : MonoBehaviour
 
     public SpawnableCreature[] creatures;
 
-    float timeElapsed = 0;
+    public float currency = 0;
+    [SerializeField] TMP_Text currencyText;
 
     private void Awake() {
         audioManager = FindObjectOfType<AudioManager>();
@@ -48,10 +49,8 @@ public class LevelManager : MonoBehaviour
     }
 
     private void Update() {
-        //if (timerText != null && !gameEnd) {
-        //    timeElapsed += Time.deltaTime;
-        //    timerText.text = (Mathf.Round(timeElapsed * 100f) / 100f).ToString();
-        //}
+        currency += Time.deltaTime;
+        currencyText.text = Mathf.FloorToInt(currency).ToString();
     }
 
     public async void RestartLevel() {

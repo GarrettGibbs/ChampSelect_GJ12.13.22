@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Figure : MonoBehaviour {
     [SerializeField] Animator animator;
@@ -14,7 +15,11 @@ public class Figure : MonoBehaviour {
 
     public bool enemy;
 
+    [SerializeField] Image healthFill;
+    [SerializeField] SpriteRenderer minimapIcon;
+
     [SerializeField] int health;
+    int maxHealth;
 
     List<Figure> targetingThisFigure = new List<Figure>();
     Figure target;
@@ -25,13 +30,13 @@ public class Figure : MonoBehaviour {
     float timeSinceAttack = 0;
 
     bool dead = false;
-    bool madeItAcross = false;
 
     bool setupDone = false;
 
     private void Start() {
         sprite = GetComponent<SpriteRenderer>();
         timeSinceAttack = attackFrequency;
+        maxHealth = health;
     }
 
     public void SetupCreature(bool flipX, bool isEnemy) {
@@ -40,17 +45,27 @@ public class Figure : MonoBehaviour {
         setupDone = true;
         if (flipX) {
             travelDirection = 1;
+            minimapIcon.flipX = true;
         } else {
             travelDirection = -1;
+            minimapIcon.flipX = false;
+            healthFill.transform.parent.transform.localScale = new Vector3(healthFill.transform.parent.transform.localScale.x*-1, healthFill.transform.parent.transform.localScale.y, healthFill.transform.parent.transform.localScale.z);
+        }
+        if (enemy) {
+            minimapIcon.color = Color.red;
+        } else {
+            minimapIcon.color = Color.green;
         }
     }
 
     void Update() {
+        healthFill.fillAmount = (float)health / maxHealth;
+
         if (dead || !setupDone) return;
         if(target != null || targetBarracks != null) {
             timeSinceAttack += Time.deltaTime;
             CheckAttack();
-        } else if (blockedByFigure == null && !madeItAcross) {
+        } else if (blockedByFigure == null) {
             timeSinceAttack = attackFrequency;
             animator.SetBool("Walking", true);
             transform.position = new Vector3(transform.position.x + (travelDirection * movementSpeed * Time.deltaTime), transform.position.y, transform.position.z);
@@ -87,7 +102,7 @@ public class Figure : MonoBehaviour {
                 targetBarracks = barracks;
             } else {
                 //madeItAcross = true;
-                Debug.Log("THIS SHOULD PROBABLY NOT BE HAPPENING");
+                //Debug.Log("THIS SHOULD PROBABLY NOT BE HAPPENING");
             }
         }
     }
@@ -126,7 +141,7 @@ public class Figure : MonoBehaviour {
         foreach(Figure f in targetingThisFigure) {
             f.StopTargeting();
         }
-        await Task.Delay(200);
+        await Task.Delay(50);
         sprite.color = Color.white;
         animator.SetTrigger("Death");
         await Task.Delay(700);
@@ -154,6 +169,22 @@ public class Figure : MonoBehaviour {
         if (blockingFigure != null) {
             blockingFigure.UnblockFigure();
             blockingFigure = null;
+        }
+    }
+
+    private async void HealUp(int amount) {
+        if (dead || health >= maxHealth) return;
+        sprite.color = Color.green;
+        health += amount;
+        await Task.Delay(50);
+        sprite.color = Color.white;
+    }
+
+    private void OnMouseDown() {
+        if (enemy) {
+            TakeDamage(1);
+        } else {
+            HealUp(1);
         }
     }
 }
