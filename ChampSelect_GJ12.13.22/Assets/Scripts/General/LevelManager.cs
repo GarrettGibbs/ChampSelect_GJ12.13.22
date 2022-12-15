@@ -21,6 +21,8 @@ public class LevelManager : MonoBehaviour
     public bool inSettings = false;
     //public bool readyToLeave = false;
 
+    public SpawnableCreature[] creatures;
+
     float timeElapsed = 0;
 
     private void Awake() {
