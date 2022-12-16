@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,8 +23,11 @@ public class Barracks : MonoBehaviour
 
     [SerializeField] Image healthFill;
 
+    [SerializeField] TMP_Text upgradeCost;
+    [SerializeField] Button upgradeButton;
+
     int health = 100;
-    int[] healthAtLevels = new int[5] {100, 200, 500, 1000, 2000};
+    int[] costAtLevels = new int[] {100, 125, 150, 200, 1000};
     int level = 1;
 
     int SpawnIndex = 0;
@@ -34,20 +38,39 @@ public class Barracks : MonoBehaviour
     int totalSpawns = 0;
 
     private void Update() {
-        healthFill.fillAmount = (float)health / healthAtLevels[level-1];
+        healthFill.fillAmount = (float)health / 100;
 
         timeSinceSpawn += Time.deltaTime;
-        if(totalDesiredSpawns > totalSpawns) {
-            SpawnCreature(0);
+
+        if(enemy) {
+            if (totalDesiredSpawns > totalSpawns) {
+                SpawnCreature(0);
+            }
+        } else {
+            if (level == 5) return;
+            if(levelManager.currency < costAtLevels[level - 1]) {
+                upgradeCost.color = Color.red;
+                upgradeButton.interactable = false;
+            } else {
+                upgradeCost.color = Color.black;
+                upgradeButton.interactable = true;
+            }
         }
+        
     }
 
     public void LevelUp() {
-        if (level == 5) return;
-        int difference = healthAtLevels[level + 1] - healthAtLevels[level];
+        if (level == 5 || levelManager.currency < costAtLevels[level-1]) return;
+        levelManager.currency -= costAtLevels[level-1];
+        health += 25;
+        if(health > 100) health = 100;  
         level++;
-        health += difference;
+        levelManager.upgrades++;
         CheckDamageLevel();
+        if(level == 5) {
+            upgradeButton.gameObject.SetActive(false);
+        }
+        upgradeCost.text = costAtLevels[level - 1].ToString();
     }
 
     public async void TakeDamage(int damage, Figure f) {
@@ -65,7 +88,7 @@ public class Barracks : MonoBehaviour
     }
 
     private void CheckDamageLevel() {
-        float healthRatio = (float)health / healthAtLevels[level - 1];
+        float healthRatio = (float)health / 100;
         if(healthRatio > .8f) {
             ResetSprite(0);
         } else if (healthRatio > .6f) {
@@ -129,6 +152,6 @@ public class Barracks : MonoBehaviour
         SpawnableCreature creature = levelManager.creatures[index];
         GameObject c = Instantiate(creature.creature, new Vector3(spawnPoint.transform.position.x, creature.yOffset, SpawnIndex), Quaternion.identity);
         await Task.Delay(5);
-        c.GetComponent<Figure>().SetupCreature(flipX, enemy);
+        c.GetComponent<Figure>().SetupCreature(flipX, enemy, levelManager);
     }
 }

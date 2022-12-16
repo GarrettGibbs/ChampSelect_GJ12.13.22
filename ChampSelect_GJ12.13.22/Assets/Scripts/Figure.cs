@@ -27,6 +27,8 @@ public class Figure : MonoBehaviour {
     Figure blockingFigure;
     Figure blockedByFigure;
 
+    LevelManager levelManager;
+
     float timeSinceAttack = 0;
 
     bool dead = false;
@@ -39,7 +41,8 @@ public class Figure : MonoBehaviour {
         maxHealth = health;
     }
 
-    public void SetupCreature(bool flipX, bool isEnemy) {
+    public void SetupCreature(bool flipX, bool isEnemy, LevelManager lm) {
+        levelManager = lm;
         sprite.flipX = flipX;
         enemy = isEnemy;
         setupDone = true;
@@ -121,6 +124,7 @@ public class Figure : MonoBehaviour {
 
     public async void TakeDamage(int damage) {
         if (health <= 0) return;
+        await Task.Delay(250);
         //animator.SetTrigger("Hit");
         sprite.color = Color.red;
         health -= damage;
@@ -182,9 +186,9 @@ public class Figure : MonoBehaviour {
 
     private void OnMouseDown() {
         if (enemy) {
-            TakeDamage(1);
+            TakeDamage(1 + levelManager.upgrades);
         } else {
-            HealUp(1);
+            HealUp(1 + levelManager.upgrades);
         }
     }
 }

@@ -26,6 +26,8 @@ public class LevelManager : MonoBehaviour
     public float currency = 0;
     [SerializeField] TMP_Text currencyText;
 
+    public int upgrades = 0;
+
     private void Awake() {
         audioManager = FindObjectOfType<AudioManager>();
         circleTransition = FindObjectOfType<CircleTransition>();
@@ -49,7 +51,7 @@ public class LevelManager : MonoBehaviour
     }
 
     private void Update() {
-        currency += Time.deltaTime;
+        currency += (Time.deltaTime + (.4f * upgrades * Time.deltaTime));
         currencyText.text = Mathf.FloorToInt(currency).ToString();
     }
 
