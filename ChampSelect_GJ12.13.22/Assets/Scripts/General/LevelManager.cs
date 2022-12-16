@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     //public bool readyToLeave = false;
 
     public SpawnableCreature[] creatures;
+    public SpawnableCreature[] enemies;
 
     public float currency = 0;
     [SerializeField] TMP_Text currencyText;

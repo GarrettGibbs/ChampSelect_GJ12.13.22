@@ -1323,7 +1323,7 @@ RectTransform:
   m_GameObject: {fileID: 393879121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1724009808}
@@ -1948,7 +1948,7 @@ RectTransform:
   m_GameObject: {fileID: 454587411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1813132852}
@@ -2815,6 +2815,12 @@ GameObject:
   - component: {fileID: 573632522}
   - component: {fileID: 573632523}
   - component: {fileID: 573632524}
+  - component: {fileID: 573632525}
+  - component: {fileID: 573632526}
+  - component: {fileID: 573632528}
+  - component: {fileID: 573632527}
+  - component: {fileID: 573632529}
+  - component: {fileID: 573632530}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -2849,6 +2855,13 @@ MonoBehaviour:
   - {fileID: 573632522}
   - {fileID: 573632523}
   - {fileID: 573632524}
+  enemies:
+  - {fileID: 573632525}
+  - {fileID: 573632526}
+  - {fileID: 573632528}
+  - {fileID: 573632527}
+  - {fileID: 573632529}
+  - {fileID: 573632530}
   currency: 5000
   currencyText: {fileID: 874850406}
   upgrades: 0
@@ -2931,6 +2944,102 @@ MonoBehaviour:
   yOffset: -0.98
   resetTime: 20
   cost: 100
+--- !u!114 &573632525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573632518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d2fb488a6959143aca5c63e256604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 7932136508437774605, guid: d5dfa3dfbdb831b4aa3d60056e57f42c, type: 3}
+  yOffset: -0.89
+  resetTime: 10
+  cost: 10
+--- !u!114 &573632526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573632518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d2fb488a6959143aca5c63e256604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 6602503647584294667, guid: 545797f7a694b1249b4bcbe0811fc605, type: 3}
+  yOffset: -0.81
+  resetTime: 10
+  cost: 10
+--- !u!114 &573632527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573632518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d2fb488a6959143aca5c63e256604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 4662007938549399832, guid: b224bfc1e84ab9d48a1c3b8b53765031, type: 3}
+  yOffset: -1.39
+  resetTime: 10
+  cost: 10
+--- !u!114 &573632528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573632518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d2fb488a6959143aca5c63e256604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 1955777673937242762, guid: 57a229677ad733047a57d5e710a56a51, type: 3}
+  yOffset: -1.5
+  resetTime: 10
+  cost: 10
+--- !u!114 &573632529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573632518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d2fb488a6959143aca5c63e256604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 1197018061721061416, guid: b08503c72b7175f45929649a79f00778, type: 3}
+  yOffset: -1.43
+  resetTime: 10
+  cost: 10
+--- !u!114 &573632530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573632518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d2fb488a6959143aca5c63e256604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 7342106354723586810, guid: 24a0039294a9f434a9e4490acd5748db, type: 3}
+  yOffset: -0.83
+  resetTime: 10
+  cost: 10
 --- !u!1 &592442819
 GameObject:
   m_ObjectHideFlags: 0
@@ -3053,7 +3162,7 @@ RectTransform:
   m_GameObject: {fileID: 592442819}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 871591698}
@@ -4576,7 +4685,7 @@ RectTransform:
   m_GameObject: {fileID: 989812286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 740084521}
