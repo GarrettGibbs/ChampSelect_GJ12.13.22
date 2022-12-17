@@ -35,6 +35,7 @@ public class Barracks : MonoBehaviour
     public bool canSpawn = true;
     public float timeSinceSpawn = 8;
     public int totalDesiredSpawns = 0;
+    public int desiredSpawnIndex = 0;
     int totalSpawns = 0;
 
     private void Update() {
@@ -44,7 +45,7 @@ public class Barracks : MonoBehaviour
 
         if(enemy) {
             if (totalDesiredSpawns > totalSpawns) {
-                SpawnCreature(0);
+                SpawnCreature(desiredSpawnIndex);
             }
         } else {
             if (level == 5) return;
@@ -61,16 +62,20 @@ public class Barracks : MonoBehaviour
 
     public void LevelUp() {
         if (level == 5 || levelManager.currency < costAtLevels[level-1]) return;
-        levelManager.currency -= costAtLevels[level-1];
+        
         health += 25;
         if(health > 100) health = 100;  
         level++;
-        levelManager.upgrades++;
         CheckDamageLevel();
-        if(level == 5) {
-            upgradeButton.gameObject.SetActive(false);
+        
+        if (!enemy) {
+            levelManager.currency -= costAtLevels[level - 1];
+            levelManager.upgrades++;
+            if (level == 5) {
+                upgradeButton.gameObject.SetActive(false);
+            }
+            upgradeCost.text = costAtLevels[level - 1].ToString();
         }
-        upgradeCost.text = costAtLevels[level - 1].ToString();
     }
 
     public async void TakeDamage(int damage, Figure f) {
@@ -149,7 +154,12 @@ public class Barracks : MonoBehaviour
         } else {
             SpawnIndex--;
         }
-        SpawnableCreature creature = levelManager.creatures[index];
+        SpawnableCreature creature = null;
+        if (enemy) {
+            creature = levelManager.enemies[index];
+        } else {
+            creature = levelManager.creatures[index];
+        }
         GameObject c = Instantiate(creature.creature, new Vector3(spawnPoint.transform.position.x, creature.yOffset, SpawnIndex), Quaternion.identity);
         await Task.Delay(5);
         c.GetComponent<Figure>().SetupCreature(flipX, enemy, levelManager);

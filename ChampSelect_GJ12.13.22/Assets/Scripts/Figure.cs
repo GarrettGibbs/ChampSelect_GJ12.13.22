@@ -79,6 +79,7 @@ public class Figure : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+        if(!setupDone) return;
         Figure figure = collision.gameObject.GetComponent<Figure>();
         Barracks barracks = collision.gameObject.GetComponent<Barracks>();
         if (figure != null) {

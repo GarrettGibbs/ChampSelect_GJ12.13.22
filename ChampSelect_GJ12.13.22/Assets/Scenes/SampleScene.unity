@@ -1481,6 +1481,7 @@ GameObject:
   - component: {fileID: 423181965}
   - component: {fileID: 423181964}
   - component: {fileID: 423181967}
+  - component: {fileID: 423181968}
   - component: {fileID: 423181966}
   m_Layer: 0
   m_Name: Center Base 2
@@ -1629,6 +1630,21 @@ MonoBehaviour:
   canSpawn: 1
   timeSinceSpawn: 8
   totalDesiredSpawns: 0
+  desiredSpawnIndex: 0
+--- !u!114 &423181968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423181963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d111c5729a4de449be0a4563f1d2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barracks: {fileID: 423181967}
+  levelManager: {fileID: 573632519}
 --- !u!1 &440639009
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,12 +2831,12 @@ GameObject:
   - component: {fileID: 573632522}
   - component: {fileID: 573632523}
   - component: {fileID: 573632524}
+  - component: {fileID: 573632529}
+  - component: {fileID: 573632527}
+  - component: {fileID: 573632528}
+  - component: {fileID: 573632530}
   - component: {fileID: 573632525}
   - component: {fileID: 573632526}
-  - component: {fileID: 573632528}
-  - component: {fileID: 573632527}
-  - component: {fileID: 573632529}
-  - component: {fileID: 573632530}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -2856,12 +2872,12 @@ MonoBehaviour:
   - {fileID: 573632523}
   - {fileID: 573632524}
   enemies:
+  - {fileID: 573632529}
+  - {fileID: 573632527}
+  - {fileID: 573632528}
+  - {fileID: 573632530}
   - {fileID: 573632525}
   - {fileID: 573632526}
-  - {fileID: 573632528}
-  - {fileID: 573632527}
-  - {fileID: 573632529}
-  - {fileID: 573632530}
   currency: 5000
   currencyText: {fileID: 874850406}
   upgrades: 0
@@ -7005,6 +7021,7 @@ MonoBehaviour:
   canSpawn: 1
   timeSinceSpawn: 8
   totalDesiredSpawns: 0
+  desiredSpawnIndex: 0
 --- !u!114 &1833825743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7317,6 +7334,7 @@ MonoBehaviour:
   canSpawn: 1
   timeSinceSpawn: 8
   totalDesiredSpawns: 0
+  desiredSpawnIndex: 0
 --- !u!114 &2063494969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7715,6 +7733,7 @@ MonoBehaviour:
   canSpawn: 1
   timeSinceSpawn: 8
   totalDesiredSpawns: 0
+  desiredSpawnIndex: 0
 --- !u!114 &2129101756
 MonoBehaviour:
   m_ObjectHideFlags: 0
