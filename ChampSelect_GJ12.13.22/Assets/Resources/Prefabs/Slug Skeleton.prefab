@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7342106354723586811}
   sprite: {fileID: 0}
-  movementSpeed: 0.5
+  movementSpeed: 0.8
   travelDirection: 1
   strength: 15
   attackFrequency: 4

@@ -5,12 +5,17 @@ using UnityEngine;
 public class SpawnArea : MonoBehaviour
 {
     [SerializeField] Barracks barracks;
+    int count = 0;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        barracks.canSpawn = false;
+        count++;
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        barracks.canSpawn = true;
+        count--;
+    }
+
+    private void Update() {
+        barracks.canSpawn = count == 0;
     }
 }

@@ -32,10 +32,11 @@ public class EnemyBarracks : MonoBehaviour
         }
 
         if (timeSinceSpawn >= timeBetweenSpawns) {
+            if (!barracks.canSpawn) return;
             barracks.desiredSpawnIndex = creatureIndexes[level - 1][Random.Range(0, creatureIndexes[level - 1].Length)];
             barracks.totalDesiredSpawns++;
             timeSinceSpawn = 0;
-            timeBetweenSpawns = Random.Range(13-level, 22-level);
+            timeBetweenSpawns = Random.Range(4, 15-level);
         }
     }
 

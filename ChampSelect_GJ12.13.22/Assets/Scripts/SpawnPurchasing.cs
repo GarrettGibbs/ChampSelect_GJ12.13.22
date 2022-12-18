@@ -32,11 +32,11 @@ public class SpawnPurchasing : MonoBehaviour
     [SerializeField] Image overallTimerFill;
 
     private void Update() {
-        overallTimerFill.fillAmount =  1 - (barracks.timeSinceSpawn / 8);
+        overallTimerFill.fillAmount =  1 - (barracks.timeSinceSpawn / 4);
 
         timeSinceGolemSpawn += Time.deltaTime;
         golemTimerFill.fillAmount = timeSinceGolemSpawn / levelManager.creatures[0].resetTime;
-        if(timeSinceGolemSpawn < levelManager.creatures[0].resetTime || levelManager.currency < levelManager.creatures[0].cost || barracks.timeSinceSpawn < 8) {
+        if(timeSinceGolemSpawn < levelManager.creatures[0].resetTime || levelManager.currency < levelManager.creatures[0].cost || barracks.timeSinceSpawn < 4) {
             golemButton.interactable = false;
         } 
         else {
@@ -50,7 +50,7 @@ public class SpawnPurchasing : MonoBehaviour
 
         timeSinceDwarfSpawn += Time.deltaTime;
         dwarfTimerFill.fillAmount = timeSinceDwarfSpawn / levelManager.creatures[1].resetTime;
-        if (timeSinceDwarfSpawn < levelManager.creatures[1].resetTime || levelManager.currency < levelManager.creatures[1].cost || barracks.timeSinceSpawn < 8) {
+        if (timeSinceDwarfSpawn < levelManager.creatures[1].resetTime || levelManager.currency < levelManager.creatures[1].cost || barracks.timeSinceSpawn < 4) {
             dwarfButton.interactable = false;
         } else {
             dwarfButton.interactable = true;
@@ -63,7 +63,7 @@ public class SpawnPurchasing : MonoBehaviour
 
         timeSinceFighterSpawn += Time.deltaTime;
         fighterTimerFill.fillAmount = timeSinceFighterSpawn / levelManager.creatures[2].resetTime;
-        if (timeSinceFighterSpawn < levelManager.creatures[2].resetTime || levelManager.currency < levelManager.creatures[2].cost || barracks.timeSinceSpawn < 8) {
+        if (timeSinceFighterSpawn < levelManager.creatures[2].resetTime || levelManager.currency < levelManager.creatures[2].cost || barracks.timeSinceSpawn < 4) {
             fighterButton.interactable = false;
         } else {
             fighterButton.interactable = true;
@@ -76,7 +76,7 @@ public class SpawnPurchasing : MonoBehaviour
 
         timeSinceZeusSpawn += Time.deltaTime;
         zeusTimerFill.fillAmount = timeSinceZeusSpawn / levelManager.creatures[3].resetTime;
-        if (timeSinceZeusSpawn < levelManager.creatures[3].resetTime || levelManager.currency < levelManager.creatures[3].cost || barracks.timeSinceSpawn < 8) {
+        if (timeSinceZeusSpawn < levelManager.creatures[3].resetTime || levelManager.currency < levelManager.creatures[3].cost || barracks.timeSinceSpawn < 4) {
             zeusButton.interactable = false;
         } else {
             zeusButton.interactable = true;

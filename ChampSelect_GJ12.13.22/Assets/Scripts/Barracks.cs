@@ -33,7 +33,7 @@ public class Barracks : MonoBehaviour
     int SpawnIndex = 0;
 
     public bool canSpawn = true;
-    public float timeSinceSpawn = 8;
+    public float timeSinceSpawn = 6;
     public int totalDesiredSpawns = 0;
     public int desiredSpawnIndex = 0;
     int totalSpawns = 0;
@@ -146,7 +146,7 @@ public class Barracks : MonoBehaviour
     }
 
     public async void SpawnCreature(int index = 0) {
-        if(!canSpawn || timeSinceSpawn < 8) return;
+        if(!canSpawn || timeSinceSpawn < 4) return;
         totalSpawns++;
         timeSinceSpawn = 0;
         if(enemy) {
