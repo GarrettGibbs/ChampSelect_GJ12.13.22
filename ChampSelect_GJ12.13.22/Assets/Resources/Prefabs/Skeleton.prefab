@@ -126,12 +126,12 @@ MonoBehaviour:
   sprite: {fileID: 0}
   movementSpeed: 0.8
   travelDirection: 1
-  strength: 5
+  strength: 10
   attackFrequency: 3
   enemy: 0
   healthFill: {fileID: 2406647408662998701}
   minimapIcon: {fileID: 2929415513371949683}
-  health: 30
+  health: 60
 --- !u!70 &1955777673937242767
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

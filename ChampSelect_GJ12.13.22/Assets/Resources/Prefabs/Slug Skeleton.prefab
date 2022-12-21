@@ -211,11 +211,11 @@ MonoBehaviour:
   movementSpeed: 0.8
   travelDirection: 1
   strength: 15
-  attackFrequency: 4
+  attackFrequency: 3.5
   enemy: 0
   healthFill: {fileID: 6892221206756566749}
   minimapIcon: {fileID: 6226059743217512963}
-  health: 50
+  health: 100
 --- !u!70 &7342106354723586815
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

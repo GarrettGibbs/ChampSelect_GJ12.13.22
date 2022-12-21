@@ -10,21 +10,20 @@ public enum MusicType {Peaceful,Battle};
 
 public class AudioManager : MonoBehaviour {
     [SerializeField] AudioClip[] allSounds;
-    [SerializeField] AudioClip peacefulIntro;
-    [SerializeField] AudioClip peacefulLoop;
-    [SerializeField] AudioClip combatIntro;
-    [SerializeField] AudioClip combatLoop;
-
+    //[SerializeField] AudioClip peacefulIntro;
+    //[SerializeField] AudioClip peacefulLoop;
+    //[SerializeField] AudioClip combatIntro;
+    //[SerializeField] AudioClip combatLoop;
 
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource sfxSource;
-    public AudioSource secondary1;
-    public AudioSource secondary2;
+    //public AudioSource secondary1;
+    //public AudioSource secondary2;
     
     [SerializeField] ProgressManager pm;
 
     public static AudioManager instance;
-    public MusicType currentMusic = MusicType.Peaceful;
+    //public MusicType currentMusic = MusicType.Peaceful;
 
     int musicIndex = 0;
 
@@ -37,29 +36,29 @@ public class AudioManager : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
 
-    public async void TransitionMusic(MusicType music) {
-        if (music == currentMusic) return;
-        musicIndex++;
-        int tempIndex = musicIndex;
-        //ResetAmbients();
-        currentMusic = music;
-        LeanTween.value(gameObject, .8f, 0f, .2f).setOnUpdate((float val) => {
-            musicSource.volume = val;
-        });
-        await Task.Delay(205);
-        switch (music) {
-            case MusicType.Peaceful:
-                PlayPeacefulMusic(tempIndex);
-                break;
-            case MusicType.Battle:
-                PlayBattleMusic(tempIndex);
-                break;
-        }
+    //public async void TransitionMusic(MusicType music) {
+    //    if (music == currentMusic) return;
+    //    musicIndex++;
+    //    int tempIndex = musicIndex;
+    //    //ResetAmbients();
+    //    currentMusic = music;
+    //    LeanTween.value(gameObject, .8f, 0f, .2f).setOnUpdate((float val) => {
+    //        musicSource.volume = val;
+    //    });
+    //    await Task.Delay(205);
+    //    switch (music) {
+    //        case MusicType.Peaceful:
+    //            PlayPeacefulMusic(tempIndex);
+    //            break;
+    //        case MusicType.Battle:
+    //            PlayBattleMusic(tempIndex);
+    //            break;
+    //    }
 
-        //LeanTween.value(gameObject, .0f, .15f, .4f).setOnUpdate((float val) => {
-        //    musicSource.volume = val;
-        //});
-    }
+    //    //LeanTween.value(gameObject, .0f, .15f, .4f).setOnUpdate((float val) => {
+    //    //    musicSource.volume = val;
+    //    //});
+    //}
 
 
     //private async void PlayDialogue() {
@@ -84,27 +83,27 @@ public class AudioManager : MonoBehaviour {
     //    secondary2.Stop();
     //}
 
-    private async void PlayBattleMusic(int index) {
-        await Task.Delay(200);
-        musicSource.clip = combatIntro;
-        musicSource.Play();
-        musicSource.volume = .8f;
-        await Task.Delay(59110);
-        if (currentMusic != MusicType.Battle || !this.enabled || index != musicIndex) return;
-        musicSource.clip = combatLoop;
-        musicSource.Play();
-    }
+    //private async void PlayBattleMusic(int index) {
+    //    await Task.Delay(200);
+    //    musicSource.clip = combatIntro;
+    //    musicSource.Play();
+    //    musicSource.volume = .8f;
+    //    await Task.Delay(59110);
+    //    if (currentMusic != MusicType.Battle || !this.enabled || index != musicIndex) return;
+    //    musicSource.clip = combatLoop;
+    //    musicSource.Play();
+    //}
 
-    private async void PlayPeacefulMusic(int index) {
-        await Task.Delay(200);
-        musicSource.clip = peacefulIntro;
-        musicSource.Play();
-        musicSource.volume = .8f;
-        await Task.Delay(59077);
-        if (currentMusic != MusicType.Peaceful || !this.enabled || index != musicIndex) return;
-        musicSource.clip = peacefulLoop;
-        musicSource.Play();
-    }
+    //private async void PlayPeacefulMusic(int index) {
+    //    await Task.Delay(200);
+    //    musicSource.clip = peacefulIntro;
+    //    musicSource.Play();
+    //    musicSource.volume = .8f;
+    //    await Task.Delay(59077);
+    //    if (currentMusic != MusicType.Peaceful || !this.enabled || index != musicIndex) return;
+    //    musicSource.clip = peacefulLoop;
+    //    musicSource.Play();
+    //}
 
     //public void PlayForestAmbiance() {
     //    secondary1.clip = forestAmbiance;

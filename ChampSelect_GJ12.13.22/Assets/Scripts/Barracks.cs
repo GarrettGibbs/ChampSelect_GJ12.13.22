@@ -27,6 +27,7 @@ public class Barracks : MonoBehaviour
     [SerializeField] Button upgradeButton;
 
     int health = 100;
+    int maxHealth = 100;
     int[] costAtLevels = new int[] {100, 125, 150, 200, 1000};
     int level = 1;
 
@@ -38,8 +39,25 @@ public class Barracks : MonoBehaviour
     public int desiredSpawnIndex = 0;
     int totalSpawns = 0;
 
+    private void Start() {
+        if (enemy) {
+            switch (levelManager.progressManager.difficulty) {
+                case .75f:
+                    health = 100;
+                    break;
+                case 1f:
+                    health = 150;
+                    break;
+                case 1.5f:
+                    health = 200;
+                    break;
+            }
+        }
+        maxHealth = health;
+    }
+
     private void Update() {
-        healthFill.fillAmount = (float)health / 100;
+        healthFill.fillAmount = (float)health / maxHealth;
 
         timeSinceSpawn += Time.deltaTime;
 
@@ -57,25 +75,29 @@ public class Barracks : MonoBehaviour
                 upgradeButton.interactable = true;
             }
         }
-        
     }
 
     public void LevelUp() {
-        if (level == 5 || levelManager.currency < costAtLevels[level-1]) return;
+        if (!enemy) {
+            if (level == 5 || levelManager.currency < costAtLevels[level - 1]) return;
+        }
+        levelManager.audioManager.PlaySound("Victory");
         
         health += 25;
-        if(health > 100) health = 100;  
-        level++;
-        CheckDamageLevel();
+        if(health > maxHealth) health = maxHealth;  
         
         if (!enemy) {
             levelManager.currency -= costAtLevels[level - 1];
+            level++;
             levelManager.upgrades++;
             if (level == 5) {
                 upgradeButton.gameObject.SetActive(false);
             }
             upgradeCost.text = costAtLevels[level - 1].ToString();
+        } else {
+            level++;
         }
+        CheckDamageLevel();
     }
 
     public async void TakeDamage(int damage, Figure f) {
@@ -84,6 +106,7 @@ public class Barracks : MonoBehaviour
         sprite.color = Color.red;
         health -= damage;
         CheckDamageLevel();
+        levelManager.audioManager.PlaySound("CastleSetup");
         if (health <= 0) {
             Die();
         } else {
@@ -93,7 +116,7 @@ public class Barracks : MonoBehaviour
     }
 
     private void CheckDamageLevel() {
-        float healthRatio = (float)health / 100;
+        float healthRatio = (float)health / maxHealth;
         if(healthRatio > .8f) {
             ResetSprite(0);
         } else if (healthRatio > .6f) {
@@ -142,6 +165,7 @@ public class Barracks : MonoBehaviour
             sprite.color = c;
         });
         await Task.Delay(500);
+        levelManager.OnBarracksDeath(enemy);
         Destroy(gameObject);
     }
 
@@ -154,6 +178,7 @@ public class Barracks : MonoBehaviour
         } else {
             SpawnIndex--;
         }
+        levelManager.audioManager.PlaySound("Jump");
         SpawnableCreature creature = null;
         if (enemy) {
             creature = levelManager.enemies[index];

@@ -38,7 +38,6 @@ public class Figure : MonoBehaviour {
     private void Start() {
         sprite = GetComponent<SpriteRenderer>();
         timeSinceAttack = attackFrequency;
-        maxHealth = health;
     }
 
     public void SetupCreature(bool flipX, bool isEnemy, LevelManager lm) {
@@ -59,6 +58,18 @@ public class Figure : MonoBehaviour {
         } else {
             minimapIcon.color = Color.green;
         }
+        UpdateStats();
+    }
+
+    private void UpdateStats() {
+        if (enemy) {
+            strength = Mathf.RoundToInt(strength * levelManager.progressManager.difficulty);
+            health = Mathf.RoundToInt(health * levelManager.progressManager.difficulty);
+        } else {
+            strength = Mathf.RoundToInt(strength * (1 + (levelManager.upgrades * .1f)));
+            health = Mathf.RoundToInt(health * (1 + (levelManager.upgrades * .1f)));
+        }
+        maxHealth = health;
     }
 
     void Update() {
@@ -115,6 +126,7 @@ public class Figure : MonoBehaviour {
         if(timeSinceAttack >= attackFrequency) {
             animator.SetTrigger("Attack");
             if(target != null) {
+                levelManager.audioManager.PlaySound("ShortHit");
                 target.TakeDamage(strength);
             } else if (targetBarracks != null) {
                 targetBarracks.TakeDamage(strength, this);
@@ -147,6 +159,7 @@ public class Figure : MonoBehaviour {
             f.StopTargeting();
         }
         await Task.Delay(50);
+        levelManager.audioManager.PlaySound("Hit");
         sprite.color = Color.white;
         animator.SetTrigger("Death");
         await Task.Delay(700);
@@ -155,6 +168,7 @@ public class Figure : MonoBehaviour {
             c.a = val;
             sprite.color = c;
         });
+        //if (enemy) levelManager.currency += 10;
         await Task.Delay(500);
         Destroy(gameObject);
     }
@@ -179,6 +193,7 @@ public class Figure : MonoBehaviour {
 
     private async void HealUp(int amount) {
         if (dead || health >= maxHealth) return;
+        levelManager.audioManager.PlaySound("Collect");
         sprite.color = Color.green;
         health += amount;
         await Task.Delay(50);
@@ -187,7 +202,9 @@ public class Figure : MonoBehaviour {
 
     private void OnMouseDown() {
         if (enemy) {
+            levelManager.currency += levelManager.upgrades + 1;
             TakeDamage(1 + levelManager.upgrades);
+            levelManager.audioManager.PlaySound("Action");
         } else {
             HealUp(1 + levelManager.upgrades);
         }

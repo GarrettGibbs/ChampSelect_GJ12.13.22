@@ -368,6 +368,22 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6313054739798844269, guid: 38b72f089dfad874c800a7883e6c653b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6313054739798844269, guid: 38b72f089dfad874c800a7883e6c653b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6313054739798844269, guid: 38b72f089dfad874c800a7883e6c653b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.723
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904342189990961698, guid: 38b72f089dfad874c800a7883e6c653b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aede5c587f2f5204b932bb862f6de722, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38b72f089dfad874c800a7883e6c653b, type: 3}
 --- !u!114 &2179079098114383431 stripped

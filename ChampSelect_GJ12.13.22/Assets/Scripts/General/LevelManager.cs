@@ -29,30 +29,53 @@ public class LevelManager : MonoBehaviour
 
     public int upgrades = 0;
 
+    private int enemyDeaths = 0;
+
+    [SerializeField] GameObject WinPanel;
+    [SerializeField] GameObject LosePanel;
+
+    [SerializeField] GameObject easyCheck;
+    [SerializeField] GameObject normalCheck;
+    [SerializeField] GameObject hardCheck;
+
     private void Awake() {
         audioManager = FindObjectOfType<AudioManager>();
         circleTransition = FindObjectOfType<CircleTransition>();
         progressManager = FindObjectOfType<ProgressManager>();
-        //if(player != null) {
-        //    circleTransition.player = player.transform;
-        //} else if (menuCenter != null) {
-        //    circleTransition.player = menuCenter.transform;
-        //}
+        if (player != null) {
+            circleTransition.player = player.transform;
+        } else if (menuCenter != null) {
+            circleTransition.player = menuCenter.transform;
+        }
     }
 
-    private void Start() {
-        //progressManager.currentLevel = SceneManager.GetActiveScene().buildIndex;
+    private async void Start() {
+        progressManager.currentLevel = SceneManager.GetActiveScene().buildIndex;
         //audioManager.TransitionMusic(MusicType.Peaceful);
-        //if(!progressManager.firstTimeAtMenu) {
-        //    circleTransition.OpenBlackScreen();
-        //}
-        //if(progressManager.currentLevel == 0) {
-        //    CheckWins();
-        //}
+        if (!progressManager.firstTimeAtMenu) {
+            await Task.Delay(1000);
+            circleTransition.OpenBlackScreen();
+        }
+        if(easyCheck != null) {
+            ChangeDifficuly(progressManager.difficulty);
+        } else {
+            switch (progressManager.difficulty) {
+                case .75f:
+                    currency = 100;
+                    break;
+                case 1f:
+                    currency = 25;
+                    break;
+                case 1.5f:
+                    currency = 0;
+                    break;
+            }
+        }
     }
 
     private void Update() {
-        currency += (Time.deltaTime + (.4f * upgrades * Time.deltaTime));
+        if (progressManager.currentLevel == 0) return;
+        currency += (Time.deltaTime + (.5f * upgrades * Time.deltaTime));
         currencyText.text = Mathf.FloorToInt(currency).ToString();
     }
 
@@ -71,12 +94,8 @@ public class LevelManager : MonoBehaviour
                 SceneManager.LoadScene(1);
                 break;
             case 1:
-                SceneManager.LoadScene(2);
-                break;
-            case 2:
                 SceneManager.LoadScene(0);
                 break;
-
         }
     }
 
@@ -85,5 +104,51 @@ public class LevelManager : MonoBehaviour
         progressManager.firstTimeAtMenu = false;
         await Task.Delay(1000);
         SceneManager.LoadScene(destination);
+    }
+
+    public void OnBarracksDeath(bool enemy) {
+        if (enemy) {
+            enemyDeaths++;
+            if(enemyDeaths == 2) {
+                OnWin();
+            }
+        } else {
+            OnLose();
+        }
+    }
+
+    private void OnWin() {
+        Time.timeScale = 0;
+        audioManager.PlaySound("GameEnd");
+        respawning = true;
+        WinPanel.SetActive(true);
+    }
+
+    private void OnLose() {
+        Time.timeScale = 0;
+        audioManager.PlaySound("Death");
+        respawning = true;
+        LosePanel.SetActive(true);
+    }
+
+    public void ChangeDifficuly(float input) {
+        progressManager.difficulty = input;
+        switch (input) {
+            case .75f:
+                easyCheck.SetActive(true);
+                normalCheck.SetActive(false);
+                hardCheck.SetActive(false);
+                break;
+            case 1f:
+                easyCheck.SetActive(false);
+                normalCheck.SetActive(true);
+                hardCheck.SetActive(false);
+                break;
+            case 1.5f:
+                easyCheck.SetActive(false);
+                normalCheck.SetActive(false);
+                hardCheck.SetActive(true);
+                break;
+        }
     }
 }

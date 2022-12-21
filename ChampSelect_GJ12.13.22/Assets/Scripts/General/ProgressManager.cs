@@ -26,20 +26,21 @@ public class ProgressManager : MonoBehaviour
     //public int redirectDialogueIndex = 0;
     //public int deathDialogueIndex = 0;
     //public int penguinDialogueIndex = 0;
-    #endregion
-
-    public bool firstTimeAtMenu = true;
 
     public bool endofShow = true;
     public bool leftCutscene = false;
     public bool gameCompleted = false;
+    #endregion
+
+    public bool firstTimeAtMenu = true;
 
     public static ProgressManager instance;
     //public bool[] levelsStared = new bool[3] {false,false,false};
     public int currentLevel = -1;
-    public float firstPlanetDestoryed = 0f;
-    public float secondPlanetDestoryed = 0f;
-    
+    //public float firstPlanetDestoryed = 0f;
+    //public float secondPlanetDestoryed = 0f;
+
+    public float difficulty = 1f;
 
     void Awake() {
         if (instance == null) {

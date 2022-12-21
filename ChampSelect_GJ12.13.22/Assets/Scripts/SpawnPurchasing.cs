@@ -11,22 +11,22 @@ public class SpawnPurchasing : MonoBehaviour
 
     [SerializeField] Button golemButton;
     [SerializeField] Image golemTimerFill;
-    float timeSinceGolemSpawn = 0f;
+    float timeSinceGolemSpawn = 20f;
     [SerializeField] TMP_Text golemCostText;
 
     [SerializeField] Button dwarfButton;
     [SerializeField] Image dwarfTimerFill;
-    float timeSinceDwarfSpawn = 0f;
+    float timeSinceDwarfSpawn = 20f;
     [SerializeField] TMP_Text dwarfCostText;
 
     [SerializeField] Button fighterButton;
     [SerializeField] Image fighterTimerFill;
-    float timeSinceFighterSpawn = 0f;
+    float timeSinceFighterSpawn = 20f;
     [SerializeField] TMP_Text fighterCostText;
 
     [SerializeField] Button zeusButton;
     [SerializeField] Image zeusTimerFill;
-    float timeSinceZeusSpawn = 0f;
+    float timeSinceZeusSpawn = 20f;
     [SerializeField] TMP_Text zeusCostText;
 
     [SerializeField] Image overallTimerFill;

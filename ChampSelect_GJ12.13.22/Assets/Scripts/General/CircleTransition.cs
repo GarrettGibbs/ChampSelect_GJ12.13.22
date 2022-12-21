@@ -38,14 +38,14 @@ public class CircleTransition : MonoBehaviour
     public void OpenBlackScreen() {
         blackScreen.gameObject.SetActive(true);
         DrawBlackScreen();
-        //audioManager.PlaySound("TransitionIn");
+        audioManager.PlaySound("TransitionIn");
         StartCoroutine(Transition(1, 0, 1.2f));
     }
 
     public void CloseBlackScreen() {
         blackScreen.gameObject.SetActive(true);
         DrawBlackScreen();
-        //audioManager.PlaySound("TransitionOut");
+        audioManager.PlaySound("TransitionOut");
         StartCoroutine(Transition(1, 1.2f, 0));
     }
 
